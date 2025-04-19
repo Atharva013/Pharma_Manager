@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaWell - Advanced Pharmacy Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --success: #4ad66d;
+      --warning: #f8961e;
+      --danger: #ef233c;
+      --dark: #2b2d42;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --white: #ffffff;
+      --header-gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+      --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7ff;
+      color: var(--dark);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    header {
+      background: var(--header-gradient);
+      color: var(--white);
+      padding: 25px 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      margin-right: 12px;
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+    
+    .tagline {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.9;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+    
+    .main-content {
+      padding: 50px 0;
+    }
+    
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      padding: 40px;
+      margin-top: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .card-header {
+      margin-bottom: 30px;
+    }
+    
+    h1 {
+      color: var(--dark);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .welcome-text {
+      font-size: 1.1rem;
+      color: var(--gray);
+      max-width: 700px;
+    }
+    
+    .navigation {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+    
+    .nav-item {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: var(--primary);
+    }
+    
+    .nav-item:nth-child(2)::before {
+      background: var(--success);
+    }
+    
+    .nav-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .nav-item a {
+      display: block;
+      text-decoration: none;
+      color: var(--dark);
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .nav-icon {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .nav-item:hover .nav-icon {
+      transform: scale(1.1);
+    }
+    
+    .nav-item:nth-child(2) .nav-icon {
+      color: var(--success);
+    }
+    
+    .nav-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .nav-description {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    
+    footer {
+      background-color: var(--dark);
+      color: var(--light);
+      padding: 30px 0;
+      text-align: center;
+      margin-top: 60px;
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .version {
+      font-size: 0.8rem;
+      opacity: 0.6;
+      margin-top: 8px;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .card, .nav-item {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .nav-item:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+      
+      .logo {
+        font-size: 1.8rem;
+      }
+      
+      .card {
+        padding: 25px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .nav-item a {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .logo-icon {
+        font-size: 1.8rem;
+      }
+      
+      .navigation {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo-container">
+        <div class="logo">
+          <i class="logo-icon fas fa-clinic-medical"></i>
+          PharmaWell
+        </div>
+      </div>
+      <div class="tagline">Advanced Pharmacy Management System - Streamlining your healthcare operations with precision and care</div>
+    </div>
+  </header>
+  
+  <main class="container main-content">
+    <div class="card">
+      <div class="card-header">
+        <h1>Welcome to PharmaWell</h1>
+        <p class="welcome-text">Access your comprehensive pharmacy management tools through the intuitive dashboard options below. Manage inventory, process prescriptions, and analyze business performance with our powerful platform.</p>
+      </div>
+      
+      <div class="navigation">
+        <div class="nav-item">
+          <a href="/inventory">
+            <div class="nav-icon"><i class="fas fa-warehouse"></i></div>
+            <div class="nav-title">Inventory Dashboard</div>
+            <div class="nav-description">Real-time stock management, expiry tracking, automated reordering, and supplier management</div>
+          </a>
+        </div>
+        
+        <div class="nav-item">
+          <a href="/billing">
+            <div class="nav-icon"><i class="fas fa-cash-register"></i></div>
+            <div class="nav-title">Billing Dashboard</div>
+            <div class="nav-description">Secure payment processing, prescription billing, insurance claims, and financial reporting</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="container footer-content">
+      <div class="copyright">&copy; 2025 PharmaWell. All rights reserved.</div>
+      <div class="version">v4.2.1</div>
+    </div>
+  </footer>
+</body>
+</html>
