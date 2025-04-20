@@ -633,7 +633,7 @@
           <td>{{ sale.sale_id }}</td>
           <td>{{ sale.item_name }}</td>
           <td>{{ sale.quantity_sold }}</td>
-          <td>${{ sale.total_price }}</td>
+          <td> ₹{{ sale.total_price }}</td>
           <td>{{ sale.sale_date }}</td>
           <td class="action-cell">
             <button class="print-button" onclick="printBill('{{ sale.sale_id }}', '{{ sale.item_name }}', '{{ sale.quantity_sold }}', '{{ sale.total_price }}', '{{ sale.sale_date }}')">
@@ -708,7 +708,7 @@
       </table>
       
       <div class="invoice-total">
-        Total: $<span id="print-grand-total"></span>
+        Total:  ₹<span id="print-grand-total"></span>
       </div>
       
       <div class="invoice-footer">
@@ -793,8 +793,8 @@
       document.getElementById('print-date').textContent = saleDate;
       document.getElementById('print-item-name').textContent = itemName;
       document.getElementById('print-quantity').textContent = quantity;
-      document.getElementById('print-unit-price').textContent = '$' + unitPrice;
-      document.getElementById('print-total').textContent = '$' + totalPrice.toFixed(2);
+      document.getElementById('print-unit-price').textContent = ' ₹' + unitPrice;
+      document.getElementById('print-total').textContent = ' ₹' + totalPrice.toFixed(2);
       document.getElementById('print-grand-total').textContent = totalPrice.toFixed(2);
       
       // Hide the main content before printing
