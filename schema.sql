@@ -50,3 +50,35 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+//Automatically compute total_price from quantity_sold * price
+DELIMITER //
+CREATE TRIGGER calc_total_price_before_sale
+BEFORE INSERT ON Sales
+FOR EACH ROW
+BEGIN
+  DECLARE unit_price DECIMAL(10,2);
+  SELECT price INTO unit_price FROM Inventory WHERE item_id = NEW.item_id;
+  
+  SET NEW.total_price = NEW.quantity_sold * unit_price;
+END;
+//
+DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER prevent_negative_stock
+BEFORE INSERT ON Sales
+FOR EACH ROW
+BEGIN
+  DECLARE available_qty INT;
+  SELECT quantity INTO available_qty FROM Inventory WHERE item_id = NEW.item_id;
+
+  IF NEW.quantity_sold > available_qty THEN
+    SIGNAL SQLSTATE '45000'
+    SET MESSAGE_TEXT = 'Not enough stock available for sale!';
+  END IF;
+END;
+//
+DELIMITER ;
+

@@ -453,7 +453,113 @@
       padding-top: 20px;
       border-top: 1px dashed #e1e5e8;
     }
-    
+
+    .flashed-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    z-index: 1000;
+    perspective: 1000px;
+  }
+  
+  .flash {
+    position: relative;
+    padding: 16px 24px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform-origin: top right;
+    animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .flash:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+  }
+  
+  .flash:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .flash-success {
+    background-color: #f0fdf4;
+    color: #166534;
+    border-left: 4px solid #22c55e;
+  }
+  
+  .flash-success:before {
+    background: linear-gradient(to bottom, #22c55e, #16a34a);
+  }
+  
+  .flash-error {
+    background-color: #fef2f2;
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+  }
+  
+  .flash-error:before {
+    background: linear-gradient(to bottom, #ef4444, #dc2626);
+  }
+  
+  .flash-icon {
+    margin-right: 12px;
+    font-size: 1.5rem;
+  }
+  
+  .flash-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: inherit;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    padding: 4px;
+    border-radius: 50%;
+  }
+  
+  .flash-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(100px) rotate(5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) rotate(0);
+    }
+  }
+  
+  @keyframes slideOut {
+    0% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+  }
+  
+  .flash.hide {
+    animation: slideOut 0.3s ease forwards;
+  }
     /* Responsive */
     @media (max-width: 768px) {
       .container {
@@ -573,6 +679,16 @@
 </head>
 <body>
   <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flashed-messages">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
     <header>
       <div class="logo">
         <div class="logo-icon">
@@ -581,6 +697,8 @@
         <h2>Billing Dashboard</h2>
       </div>
       <a href="/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+      <a href="/sales_report" class="back-link"><i class="fas fa-chart-line"></i> Sales Report</a>
+
     </header>
     
     <div class="card">

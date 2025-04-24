@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Sales Report Dashboard</h2>
+  <canvas id="salesChart" width="400" height="200"></canvas>
+
+  <script>
+    const salesData = JSON.parse('{{ sales_data | tojson | safe }}');
+    
+    const labels = [...new Set(salesData.map(entry => entry.date))]; // Unique dates
+    const dataset = {};
+
+    salesData.forEach(entry => {
+      if (!dataset[entry.item_name]) {
+        dataset[entry.item_name] = Array(labels.length).fill(0);
+      }
+      const index = labels.indexOf(entry.date);
+      dataset[entry.item_name][index] += entry.total_quantity;
+    });
+
+    const chartData = {
+      labels: labels,
+      datasets: Object.keys(dataset).map(item => ({
+        label: item,
+        data: dataset[item],
+        borderWidth: 2,
+        fill: false,
+        borderColor: `#${Math.floor(Math.random()*16777215).toString(16)}`
+      }))
+    };
+
+    const config = {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Quantity Sold Per Day'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    new Chart(document.getElementById('salesChart'), config);
+  </script>
+</body>
+</html>
